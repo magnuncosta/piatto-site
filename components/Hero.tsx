@@ -1,5 +1,11 @@
 'use client'
-export default function Hero() {
+
+const DEFAULT_TITULO    = 'Cada detalhe, um propósito.'
+const DEFAULT_SUBTITULO = 'Móveis planejados sob medida que transformam ambientes em experiências únicas. Do projeto à instalação, cada peça feita para você.'
+
+export default function Hero({ titulo, subtitulo }: { titulo?: string; subtitulo?: string }) {
+  const t = titulo    || DEFAULT_TITULO
+  const s = subtitulo || DEFAULT_SUBTITULO
   return (
     <section style={{ position: 'relative', height: '100vh', minHeight: 600, overflow: 'hidden' }}>
       {/* Background image */}
@@ -38,15 +44,14 @@ export default function Hero() {
           maxWidth: 800,
           marginBottom: 28,
         }}>
-          Cada detalhe,<br />
-          <em style={{ fontStyle: 'italic', fontWeight: 400 }}>um propósito.</em>
+          {t}
         </h1>
 
         <p className="animate-fade-up delay-300" style={{
           fontSize: 17, color: 'rgba(255,255,255,0.75)',
           maxWidth: 520, lineHeight: 1.65, marginBottom: 44,
         }}>
-          Móveis planejados sob medida que transformam ambientes em experiências únicas. Do projeto à instalação, cada peça feita para você.
+          {s}
         </p>
 
         <div className="animate-fade-up delay-500" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>

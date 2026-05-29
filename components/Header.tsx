@@ -1,6 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
 
+
+
 const NAV = [
   { label: 'Projetos',  href: '#projetos' },
   { label: 'Serviços',  href: '#servicos' },
@@ -8,7 +10,7 @@ const NAV = [
   { label: 'Contato',   href: '#contato' },
 ]
 
-export default function Header() {
+export default function Header({ logoUrl }: { logoUrl?: string }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -31,24 +33,19 @@ export default function Header() {
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 72 }}>
         {/* Logo */}
         <a href="#" style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-            <span style={{
-              fontFamily: 'var(--font-cormorant)',
-              fontSize: 22,
-              fontWeight: 500,
-              letterSpacing: '0.05em',
-              color: scrolled ? 'var(--ink)' : '#fff',
-              transition: 'color 0.3s',
-            }}>PIATTO</span>
-            <span style={{
-              fontSize: 9,
-              letterSpacing: '0.22em',
-              color: scrolled ? 'var(--accent-dark)' : 'rgba(255,255,255,0.7)',
-              textTransform: 'uppercase',
-              transition: 'color 0.3s',
-              marginTop: 1,
-            }}>PLANEJADOS</span>
-          </div>
+          <img
+            src={logoUrl || '/logo.svg'}
+            alt="Piatto Planejados"
+            style={{
+              height: 40,
+              width: 'auto',
+              display: 'block',
+              filter: scrolled
+                ? 'brightness(0)' // logo escuro sobre fundo claro
+                : 'brightness(0) invert(1)', // logo branco sobre hero
+              transition: 'filter 0.3s',
+            }}
+          />
         </a>
 
         {/* Desktop nav */}

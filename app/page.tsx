@@ -9,23 +9,40 @@ import Testimonials from '@/components/Testimonials'
 import ContactCTA   from '@/components/ContactCTA'
 import Footer       from '@/components/Footer'
 import WhatsAppBtn  from '@/components/WhatsAppBtn'
+import { getSiteConfig, getPortfolio } from '@/lib/supabase'
 
-export default function Home() {
+export const revalidate = 60 // revalida os dados a cada 60s
+
+export default async function Home() {
+  const [config, portfolio] = await Promise.all([getSiteConfig(), getPortfolio()])
+
   return (
     <>
-      <Header />
+      <Header logoUrl={config.logo_url} />
       <main>
-        <Hero />
+        <Hero titulo={config.hero_titulo} subtitulo={config.hero_subtitulo} />
         <Stats />
-        <Portfolio />
+        <Portfolio items={portfolio} />
         <Services />
-        <About />
+        <About texto1={config.sobre_texto_1} texto2={config.sobre_texto_2} />
         <Process />
         <Testimonials />
-        <ContactCTA />
+        <ContactCTA
+          whatsapp={config.whatsapp}
+          telefone={config.telefone}
+          email={config.email}
+          endereco={config.endereco}
+        />
       </main>
-      <Footer />
-      <WhatsAppBtn />
+      <Footer
+        whatsapp={config.whatsapp}
+        telefone={config.telefone}
+        email={config.email}
+        endereco={config.endereco}
+        instagram={config.instagram_url}
+        facebook={config.facebook_url}
+      />
+      <WhatsAppBtn whatsapp={config.whatsapp} />
     </>
   )
 }

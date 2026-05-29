@@ -1,6 +1,10 @@
 'use client'
 import Reveal from './Reveal'
-export default function About() {
+
+const D1 = 'A Piatto Planejados nasceu da paixão por unir funcionalidade e beleza em cada projeto. Desde o início, nossa missão é simples: criar móveis que duram e encantam — peças que crescem junto com a família de quem os escolheu.'
+const D2 = 'Trabalhamos com fabricação própria, o que nos garante controle total sobre a qualidade, os prazos e os detalhes que fazem a diferença. Do primeiro esboço até a instalação final, acompanhamos cada etapa com atenção e cuidado.'
+
+export default function About({ texto1, texto2 }: { texto1?: string; texto2?: string }) {
   return (
     <section id="sobre" style={{ padding: '100px 24px', background: 'var(--bg)' }}>
       <div style={{
@@ -51,10 +55,10 @@ export default function About() {
           </h2>
 
           <p style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.8, marginBottom: 20 }}>
-            A Piatto Planejados nasceu da paixão por unir funcionalidade e beleza em cada projeto. Desde o início, nossa missão é simples: criar móveis que duram e encantam — peças que crescem junto com a família de quem os escolheu.
+            {texto1 || D1}
           </p>
           <p style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.8, marginBottom: 44 }}>
-            Trabalhamos com fabricação própria, o que nos garante controle total sobre a qualidade, os prazos e os detalhes que fazem a diferença. Do primeiro esboço até a instalação final, acompanhamos cada etapa com atenção e cuidado.
+            {texto2 || D2}
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 44 }}>

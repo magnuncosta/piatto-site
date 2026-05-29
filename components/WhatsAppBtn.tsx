@@ -1,10 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react'
 
-const WHATSAPP_NUMBER = '5521999999999'
-const WHATSAPP_MSG = 'Olá! Vim pelo site e gostaria de solicitar um orçamento para móveis planejados.'
-
-export default function WhatsAppBtn() {
+export default function WhatsAppBtn({ whatsapp = '5521969530979' }: { whatsapp?: string }) {
+  const WHATSAPP_NUMBER = whatsapp
+  const WHATSAPP_MSG = 'Olá! Vim pelo site e gostaria de solicitar um orçamento para móveis planejados.'
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
