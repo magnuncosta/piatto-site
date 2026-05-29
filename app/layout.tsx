@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter, Cormorant_Garamond } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
+
+const GA_ID = 'G-CCZFVWEF2G'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const cormorant = Cormorant_Garamond({
@@ -85,6 +88,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="ga-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_ID}');
+        `}</Script>
         {children}
       </body>
     </html>
