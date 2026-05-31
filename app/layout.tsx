@@ -8,7 +8,7 @@ const GA_ID = 'G-CCZFVWEF2G'
 
 // Fontes de títulos
 const cormorant = Cormorant_Garamond({ subsets: ['latin'], variable: '--ff-cormorant', weight: ['300', '400', '500', '600'] })
-const playfair  = Playfair_Display({ subsets: ['latin'], variable: '--ff-playfair',  weight: ['300', '400', '500', '600'] })
+const playfair  = Playfair_Display({ subsets: ['latin'], variable: '--ff-playfair',  weight: ['400', '500', '600', '700'] })
 const lora      = Lora({ subsets: ['latin'], variable: '--ff-lora', weight: ['400', '500', '600'] })
 
 // Fontes de corpo
