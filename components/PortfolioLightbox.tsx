@@ -53,7 +53,7 @@ export default function PortfolioLightbox({ projeto, midia, idx, carregando, onC
           <p style={{ fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 4 }}>
             {projeto.categoria}{projeto.local ? ` · ${projeto.local}` : ''}
           </p>
-          <p style={{ fontFamily: 'var(--font-cormorant)', fontSize: 22, fontWeight: 300, color: '#fff', lineHeight: 1.2 }}>
+          <p style={{ fontFamily: 'var(--font-heading)', fontSize: 22, fontWeight: 300, color: '#fff', lineHeight: 1.2 }}>
             {projeto.titulo}
           </p>
         </div>

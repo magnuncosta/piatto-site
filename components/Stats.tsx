@@ -20,7 +20,7 @@ export default function Stats() {
         {STATS.map((s, i) => (
           <Reveal key={s.label} delay={i * 100}>
             <div style={{
-              fontFamily: 'var(--font-cormorant)',
+              fontFamily: 'var(--font-heading)',
               fontSize: 52,
               fontWeight: 300,
               color: 'var(--accent)',

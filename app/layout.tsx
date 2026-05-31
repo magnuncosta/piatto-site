@@ -1,18 +1,33 @@
 import type { Metadata } from 'next'
-import { Inter, Cormorant_Garamond } from 'next/font/google'
+import { Inter, Cormorant_Garamond, Playfair_Display, Lora, Poppins } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
+import { getSiteConfig } from '@/lib/supabase'
 
 const GA_ID = 'G-CCZFVWEF2G'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  variable: '--font-cormorant',
-  weight: ['300', '400', '500', '600'],
-})
+// Fontes de títulos
+const cormorant = Cormorant_Garamond({ subsets: ['latin'], variable: '--ff-cormorant', weight: ['300', '400', '500', '600'] })
+const playfair  = Playfair_Display({ subsets: ['latin'], variable: '--ff-playfair',  weight: ['300', '400', '500', '600'] })
+const lora      = Lora({ subsets: ['latin'], variable: '--ff-lora', weight: ['400', '500', '600'] })
+
+// Fontes de corpo
+const inter   = Inter({ subsets: ['latin'], variable: '--ff-inter' })
+const poppins = Poppins({ subsets: ['latin'], variable: '--ff-poppins', weight: ['300', '400', '500', '600'] })
+
+const HEADING_FONTS: Record<string, string> = {
+  cormorant: 'var(--ff-cormorant)',
+  playfair:  'var(--ff-playfair)',
+  lora:      'var(--ff-lora)',
+}
+const BODY_FONTS: Record<string, string> = {
+  inter:   'var(--ff-inter)',
+  poppins: 'var(--ff-poppins)',
+}
 
 const BASE_URL = 'https://piattoplanejados.com.br'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -78,16 +93,48 @@ const jsonLd = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const config = await getSiteConfig()
+
+  const accent      = config.theme_color_accent  || '#C4A882'
+  const ink         = config.theme_color_ink     || '#1C1917'
+  const bg          = config.theme_color_bg      || '#FAFAF8'
+  const muted       = config.theme_color_muted   || '#78716C'
+  const headingFont = HEADING_FONTS[config.theme_font_heading || 'cormorant'] || HEADING_FONTS.cormorant
+  const bodyFont    = BODY_FONTS[config.theme_font_body || 'inter'] || BODY_FONTS.inter
+
+  const themeCSS = `
+    :root {
+      --accent: ${accent};
+      --accent-dark: color-mix(in srgb, ${accent} 80%, #000);
+      --ink: ${ink};
+      --bg: ${bg};
+      --muted: ${muted};
+      --surface: color-mix(in srgb, ${bg} 70%, #fff);
+      --border: color-mix(in srgb, ${bg} 30%, #ccc);
+      --font-heading: ${headingFont};
+      --font-body: ${bodyFont};
+    }
+  `
+
+  const fontClasses = [
+    cormorant.variable,
+    playfair.variable,
+    lora.variable,
+    inter.variable,
+    poppins.variable,
+  ].join(' ')
+
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${cormorant.variable}`}>
+    <html lang="pt-BR" className={fontClasses}>
       <head>
+        <style dangerouslySetInnerHTML={{ __html: themeCSS }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+      <body style={{ fontFamily: 'var(--font-body, var(--ff-inter)), system-ui, sans-serif' }}>
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
         <Script id="ga-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];

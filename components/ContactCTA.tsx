@@ -28,7 +28,7 @@ export default function ContactCTA({
         <p style={{ fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 20 }}>
           Vamos conversar
         </p>
-        <h2 style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 300, color: '#fff', lineHeight: 1.1, marginBottom: 20 }}>
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 300, color: '#fff', lineHeight: 1.1, marginBottom: 20 }}>
           Pronto para transformar<br />
           <em style={{ fontStyle: 'italic' }}>o seu espaço?</em>
         </h2>

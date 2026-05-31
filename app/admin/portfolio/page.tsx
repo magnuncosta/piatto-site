@@ -148,7 +148,7 @@ export default function AdminPortfolio() {
 
   return (
     <div style={{ maxWidth: 900 }}>
-      <h1 style={{ fontFamily: 'var(--font-cormorant)', fontSize: 32, fontWeight: 300, color: '#1C1917', marginBottom: 6 }}>Portfólio</h1>
+      <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 32, fontWeight: 300, color: '#1C1917', marginBottom: 6 }}>Portfólio</h1>
       <p style={{ fontSize: 13, color: '#78716C', marginBottom: 36 }}>Gerencie os projetos exibidos no site.</p>
 
       {/* Formulário de novo item */}

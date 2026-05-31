@@ -36,7 +36,7 @@ export default function Hero({ titulo, subtitulo }: { titulo?: string; subtitulo
         </p>
 
         <h1 className="animate-fade-up delay-200" style={{
-          fontFamily: 'var(--font-cormorant)',
+          fontFamily: 'var(--font-heading)',
           fontSize: 'clamp(48px, 7vw, 88px)',
           fontWeight: 300,
           color: '#fff',

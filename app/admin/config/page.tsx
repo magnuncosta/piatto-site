@@ -47,7 +47,7 @@ export default function AdminConfig() {
 
   return (
     <div style={{ maxWidth: 720 }}>
-      <h1 style={{ fontFamily: 'var(--font-cormorant)', fontSize: 32, fontWeight: 300, color: '#1C1917', marginBottom: 6 }}>Configurações</h1>
+      <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 32, fontWeight: 300, color: '#1C1917', marginBottom: 6 }}>Configurações</h1>
       <p style={{ fontSize: 13, color: '#78716C', marginBottom: 40 }}>Edite os textos e informações do site.</p>
 
       {/* Logo */}
@@ -105,8 +105,109 @@ export default function AdminConfig() {
         {msg?.key === 'redes' && <Ok ok={msg.ok} />}
         <SaveBtn onClick={() => salvar('redes', ['instagram_url', 'facebook_url'])} loading={salvando === 'redes'} />
       </Section>
+
+      {/* Aparência */}
+      <Section title="Aparência — Fontes e cores">
+        <p style={{ fontSize: 12, color: '#9CA3AF', marginBottom: 20 }}>
+          As alterações ficam visíveis no site após salvar. O site atualiza em até 60 segundos.
+        </p>
+
+        {/* Fontes */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
+          <div>
+            <label style={lblStyle}>Fonte dos títulos (H1, H2...)</label>
+            <select
+              value={config.theme_font_heading || 'cormorant'}
+              onChange={e => set('theme_font_heading', e.target.value)}
+              style={selStyle}
+            >
+              <option value="cormorant">Cormorant Garamond — elegante e clássica</option>
+              <option value="playfair">Playfair Display — sofisticada e editorial</option>
+              <option value="lora">Lora — moderna e legível</option>
+            </select>
+          </div>
+          <div>
+            <label style={lblStyle}>Fonte do corpo (parágrafos)</label>
+            <select
+              value={config.theme_font_body || 'inter'}
+              onChange={e => set('theme_font_body', e.target.value)}
+              style={selStyle}
+            >
+              <option value="inter">Inter — limpa e moderna</option>
+              <option value="poppins">Poppins — geométrica e amigável</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Preview de fonte */}
+        <div style={{ background: '#FAFAF8', border: '1px solid #E8E3DC', borderRadius: 6, padding: '20px 24px', marginBottom: 24 }}>
+          <p style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: config.theme_color_accent || '#C4A882', marginBottom: 8 }}>
+            Pré-visualização
+          </p>
+          <p style={{
+            fontFamily: config.theme_font_heading === 'playfair' ? 'var(--ff-playfair)' : config.theme_font_heading === 'lora' ? 'var(--ff-lora)' : 'var(--ff-cormorant)',
+            fontSize: 32, fontWeight: 300, color: config.theme_color_ink || '#1C1917', marginBottom: 8, lineHeight: 1.2,
+          }}>
+            Móveis que transformam ambientes
+          </p>
+          <p style={{
+            fontFamily: config.theme_font_body === 'poppins' ? 'var(--ff-poppins)' : 'var(--ff-inter)',
+            fontSize: 14, color: config.theme_color_muted || '#78716C', lineHeight: 1.7,
+          }}>
+            Qualidade, design e acabamento premium em cada projeto realizado.
+          </p>
+        </div>
+
+        {/* Cores */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 16, marginBottom: 8 }}>
+          <ColorField label="Cor de destaque (accent)" value={config.theme_color_accent || '#C4A882'} onChange={v => set('theme_color_accent', v)} />
+          <ColorField label="Cor principal (texto)" value={config.theme_color_ink || '#1C1917'} onChange={v => set('theme_color_ink', v)} />
+          <ColorField label="Cor de fundo" value={config.theme_color_bg || '#FAFAF8'} onChange={v => set('theme_color_bg', v)} />
+          <ColorField label="Cor de texto secundário" value={config.theme_color_muted || '#78716C'} onChange={v => set('theme_color_muted', v)} />
+        </div>
+
+        {msg?.key === 'aparencia' && <Ok ok={msg.ok} />}
+        <SaveBtn
+          onClick={() => salvar('aparencia', ['theme_font_heading', 'theme_font_body', 'theme_color_accent', 'theme_color_ink', 'theme_color_bg', 'theme_color_muted'])}
+          loading={salvando === 'aparencia'}
+        />
+      </Section>
     </div>
   )
+}
+
+function ColorField({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+  return (
+    <div>
+      <label style={lblStyle}>{label}</label>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <input
+          type="color"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          style={{ width: 40, height: 36, border: '1px solid #E8E3DC', borderRadius: 6, cursor: 'pointer', padding: 2, background: 'none' }}
+        />
+        <input
+          type="text"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          style={{ flex: 1, padding: '8px 10px', border: '1px solid #E8E3DC', borderRadius: 6, fontSize: 13, fontFamily: 'monospace', background: '#FAFAF8', outline: 'none', boxSizing: 'border-box' }}
+          maxLength={7}
+          placeholder="#C4A882"
+        />
+      </div>
+    </div>
+  )
+}
+
+const lblStyle: React.CSSProperties = {
+  display: 'block', fontSize: 11, fontWeight: 600, color: '#78716C',
+  textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6,
+}
+const selStyle: React.CSSProperties = {
+  width: '100%', padding: '10px 12px', border: '1px solid #E8E3DC',
+  borderRadius: 6, fontSize: 13, fontFamily: 'inherit', outline: 'none',
+  background: '#FAFAF8', boxSizing: 'border-box', cursor: 'pointer',
 }
 
 /* ---- Sub-componentes ---- */

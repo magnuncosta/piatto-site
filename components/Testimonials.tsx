@@ -30,7 +30,7 @@ export default function Testimonials() {
           <p style={{ fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 14 }}>
             Depoimentos
           </p>
-          <h2 style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--ink)' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--ink)' }}>
             O que nossos clientes dizem
           </h2>
         </Reveal>
@@ -62,7 +62,7 @@ export default function Testimonials() {
                     width: 40, height: 40, borderRadius: '50%',
                     background: 'var(--surface)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontFamily: 'var(--font-cormorant)',
+                    fontFamily: 'var(--font-heading)',
                     fontSize: 18, color: 'var(--accent)', fontWeight: 500,
                     flexShrink: 0,
                   }}>

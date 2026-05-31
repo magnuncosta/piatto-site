@@ -30,7 +30,7 @@ export default function About({ texto1, texto2 }: { texto1?: string; texto2?: st
             padding: '28px 32px',
             borderRadius: 2,
           }}>
-            <div style={{ fontFamily: 'var(--font-cormorant)', fontSize: 44, fontWeight: 300, color: '#fff', lineHeight: 1 }}>12</div>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: 44, fontWeight: 300, color: '#fff', lineHeight: 1 }}>12</div>
             <div style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.8)', marginTop: 6 }}>anos de mercado</div>
           </div>
         </div>
@@ -43,7 +43,7 @@ export default function About({ texto1, texto2 }: { texto1?: string; texto2?: st
             Nossa história
           </p>
           <h2 style={{
-            fontFamily: 'var(--font-cormorant)',
+            fontFamily: 'var(--font-heading)',
             fontSize: 'clamp(32px, 4vw, 48px)',
             fontWeight: 300,
             color: 'var(--ink)',

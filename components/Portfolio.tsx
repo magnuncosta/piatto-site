@@ -63,7 +63,7 @@ export default function Portfolio({ items }: { items?: PortfolioItem[] }) {
           <p style={{ fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 14 }}>
             Portfólio
           </p>
-          <h2 style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--ink)', lineHeight: 1.1, marginBottom: 40 }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--ink)', lineHeight: 1.1, marginBottom: 40 }}>
             Projetos realizados
           </h2>
 
@@ -139,7 +139,7 @@ export default function Portfolio({ items }: { items?: PortfolioItem[] }) {
                 }}
               >
                 <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 6 }}>{p.categoria}</p>
-                <p style={{ fontFamily: 'var(--font-cormorant)', fontSize: 22, fontWeight: 400, color: '#fff', marginBottom: 4 }}>{p.titulo}</p>
+                <p style={{ fontFamily: 'var(--font-heading)', fontSize: 22, fontWeight: 400, color: '#fff', marginBottom: 4 }}>{p.titulo}</p>
                 <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', marginBottom: 10 }}>{p.local}</p>
                 <p style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
                   Ver galeria →

@@ -43,7 +43,7 @@ export default function Services() {
           <p style={{ fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 14 }}>
             O que fazemos
           </p>
-          <h2 style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--ink)' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--ink)' }}>
             Nossos serviços
           </h2>
         </Reveal>
@@ -67,7 +67,7 @@ export default function Services() {
               >
                 <div style={{ fontSize: 32, marginBottom: 20 }}>{s.icon}</div>
                 <h3 style={{
-                  fontFamily: 'var(--font-cormorant)',
+                  fontFamily: 'var(--font-heading)',
                   fontSize: 24,
                   fontWeight: 400,
                   color: 'var(--ink)',

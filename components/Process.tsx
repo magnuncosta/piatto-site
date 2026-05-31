@@ -16,7 +16,7 @@ export default function Process() {
           <p style={{ fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 14 }}>
             Como funciona
           </p>
-          <h2 style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: '#fff' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: '#fff' }}>
             Do projeto à entrega
           </h2>
         </Reveal>
@@ -29,7 +29,7 @@ export default function Process() {
           {PASSOS.map((p, i) => (
             <Reveal key={i} delay={i * 120}>
               <div style={{
-                fontFamily: 'var(--font-cormorant)',
+                fontFamily: 'var(--font-heading)',
                 fontSize: 64,
                 fontWeight: 300,
                 color: 'rgba(196,168,130,0.15)',
@@ -40,7 +40,7 @@ export default function Process() {
               <div style={{ width: 32, height: 1, background: 'var(--accent)', marginBottom: 20 }} />
 
               <h3 style={{
-                fontFamily: 'var(--font-cormorant)',
+                fontFamily: 'var(--font-heading)',
                 fontSize: 22,
                 fontWeight: 400,
                 color: '#fff',
