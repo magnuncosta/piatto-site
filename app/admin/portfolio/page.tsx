@@ -16,6 +16,13 @@ interface Item {
   ordem: number
 }
 
+interface Midia {
+  id: string
+  url: string
+  tipo: string
+  ordem: number
+}
+
 const itemVazio = (): Omit<Item, 'id'> => ({
   titulo: '', categoria: 'Cozinha', local: '', descricao: '', img_url: '', tall: false, ativo: true, ordem: 0,
 })
@@ -32,8 +39,11 @@ export default function AdminPortfolio() {
   const [uploadandoEdit, setUploadandoEdit] = useState(false)
   const [salvandoEdit, setSalvandoEdit] = useState(false)
   const [msgEdit, setMsgEdit] = useState('')
+  const [galeria, setGaleria] = useState<Midia[]>([])
+  const [uploadandoGaleria, setUploadandoGaleria] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const fileEditRef = useRef<HTMLInputElement>(null)
+  const fileGaleriaRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => { carregar() }, [])
 
@@ -58,6 +68,32 @@ export default function AdminPortfolio() {
     else setUploadando(false)
   }
 
+  async function uploadGaleria(files: FileList) {
+    if (!editandoId) return
+    setUploadandoGaleria(true)
+    for (const file of Array.from(files)) {
+      const isVideo = file.type.startsWith('video/')
+      const nome = `${Date.now()}_${file.name.replace(/\s/g, '_')}`
+      const pasta = isVideo ? 'portfolio/videos' : 'portfolio/galeria'
+      const { error } = await supabase.storage.from('site-assets').upload(`${pasta}/${nome}`, file)
+      if (!error) {
+        const { data: { publicUrl } } = supabase.storage.from('site-assets').getPublicUrl(`${pasta}/${nome}`)
+        const { data: inserted } = await supabase
+          .from('site_portfolio_midia')
+          .insert({ portfolio_id: editandoId, url: publicUrl, tipo: isVideo ? 'video' : 'image', ordem: galeria.length })
+          .select()
+          .single()
+        if (inserted) setGaleria(g => [...g, inserted])
+      }
+    }
+    setUploadandoGaleria(false)
+  }
+
+  async function excluirMidia(midiaId: string) {
+    await supabase.from('site_portfolio_midia').delete().eq('id', midiaId)
+    setGaleria(g => g.filter(m => m.id !== midiaId))
+  }
+
   async function adicionar() {
     if (!novo.titulo || !novo.img_url) { setMsg('Preencha o título e envie uma imagem.'); return }
     setSalvando(true)
@@ -67,19 +103,22 @@ export default function AdminPortfolio() {
     else setMsg('Erro ao adicionar.')
   }
 
-  function iniciarEdicao(item: Item) {
+  async function iniciarEdicao(item: Item) {
     setEditandoId(item.id)
     setMsgEdit('')
+    setGaleria([])
     setEditData({
-      titulo: item.titulo,
-      categoria: item.categoria,
-      local: item.local,
-      descricao: item.descricao || '',
-      img_url: item.img_url,
-      tall: item.tall,
-      ativo: item.ativo,
-      ordem: item.ordem,
+      titulo: item.titulo, categoria: item.categoria, local: item.local,
+      descricao: item.descricao || '', img_url: item.img_url,
+      tall: item.tall, ativo: item.ativo, ordem: item.ordem,
     })
+    const { data } = await supabase
+      .from('site_portfolio_midia')
+      .select('id, url, tipo, ordem')
+      .eq('portfolio_id', item.id)
+      .order('ordem')
+      .order('created_at')
+    setGaleria(data || [])
   }
 
   async function salvarEdicao(id: string) {
@@ -141,24 +180,18 @@ export default function AdminPortfolio() {
 
         <div style={{ marginBottom: 14 }}>
           <label style={lbl}>Descrição do projeto</label>
-          <textarea
-            value={novo.descricao}
-            onChange={e => setNovo(n => ({ ...n, descricao: e.target.value }))}
-            rows={3}
-            style={{ ...inp, resize: 'vertical' }}
-            placeholder="Descreva o projeto: materiais, ambiente, detalhes relevantes..."
-          />
+          <textarea value={novo.descricao} onChange={e => setNovo(n => ({ ...n, descricao: e.target.value }))}
+            rows={3} style={{ ...inp, resize: 'vertical' }} placeholder="Descreva o projeto: materiais, ambiente, detalhes relevantes..." />
         </div>
 
         <div style={{ marginBottom: 14 }}>
-          <label style={lbl}>Imagem</label>
+          <label style={lbl}>Imagem de capa</label>
           <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }}
             onChange={e => e.target.files?.[0] && uploadImagem(e.target.files[0])} />
           <button onClick={() => fileRef.current?.click()} disabled={uploadando} style={{
-            ...inp, cursor: 'pointer', textAlign: 'left', background: '#FAFAF8',
-            color: novo.img_url ? '#16A34A' : '#78716C',
+            ...inp, cursor: 'pointer', textAlign: 'left', color: novo.img_url ? '#16A34A' : '#78716C',
           }}>
-            {uploadando ? 'Enviando...' : novo.img_url ? '✓ Imagem enviada' : '📤 Selecionar imagem'}
+            {uploadando ? 'Enviando...' : novo.img_url ? '✓ Imagem enviada' : '📤 Selecionar imagem de capa'}
           </button>
         </div>
 
@@ -205,10 +238,7 @@ export default function AdminPortfolio() {
               <div key={item.id} style={{ borderBottom: i < items.length - 1 ? '1px solid #F9FAFB' : 'none' }}>
 
                 {/* Linha resumo */}
-                <div style={{
-                  display: 'flex', alignItems: 'center', gap: 16, padding: '14px 24px',
-                  opacity: item.ativo ? 1 : 0.5,
-                }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '14px 24px', opacity: item.ativo ? 1 : 0.5 }}>
                   {item.img_url
                     ? <img src={item.img_url} alt={item.titulo} style={{ width: 72, height: 52, objectFit: 'cover', borderRadius: 4, flexShrink: 0 }} />
                     : <div style={{ width: 72, height: 52, background: '#F3F4F6', borderRadius: 4, flexShrink: 0 }} />
@@ -239,6 +269,8 @@ export default function AdminPortfolio() {
                 {/* Formulário de edição inline */}
                 {editandoId === item.id && (
                   <div style={{ padding: '24px', background: '#FAFAF8', borderTop: '1px solid #F3F4F6' }}>
+
+                    {/* Campos principais */}
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
                       <div>
                         <label style={lbl}>Título</label>
@@ -262,29 +294,71 @@ export default function AdminPortfolio() {
 
                     <div style={{ marginBottom: 14 }}>
                       <label style={lbl}>Descrição</label>
-                      <textarea
-                        value={editData.descricao}
-                        onChange={e => setEditData(d => ({ ...d, descricao: e.target.value }))}
-                        rows={4}
-                        style={{ ...inp, resize: 'vertical' }}
-                        placeholder="Descreva o projeto: materiais, ambiente, detalhes relevantes..."
-                      />
+                      <textarea value={editData.descricao} onChange={e => setEditData(d => ({ ...d, descricao: e.target.value }))}
+                        rows={4} style={{ ...inp, resize: 'vertical' }} placeholder="Descreva o projeto..." />
                     </div>
 
-                    <div style={{ marginBottom: 14 }}>
-                      <label style={lbl}>Imagem</label>
+                    {/* Imagem de capa */}
+                    <div style={{ marginBottom: 20 }}>
+                      <label style={lbl}>Imagem de capa</label>
                       <input ref={fileEditRef} type="file" accept="image/*" style={{ display: 'none' }}
                         onChange={e => e.target.files?.[0] && uploadImagem(e.target.files[0], true)} />
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                         {editData.img_url && (
-                          <img src={editData.img_url} alt="preview" style={{ height: 64, width: 96, objectFit: 'cover', borderRadius: 4, flexShrink: 0 }} />
+                          <img src={editData.img_url} alt="capa" style={{ height: 60, width: 90, objectFit: 'cover', borderRadius: 4, flexShrink: 0 }} />
                         )}
                         <button onClick={() => fileEditRef.current?.click()} disabled={uploadandoEdit} style={{
                           ...inp, width: 'auto', cursor: 'pointer', color: '#2563EB',
                         }}>
-                          {uploadandoEdit ? 'Enviando...' : '📤 Trocar imagem'}
+                          {uploadandoEdit ? 'Enviando...' : '📤 Trocar imagem de capa'}
                         </button>
                       </div>
+                    </div>
+
+                    {/* Galeria de mídias */}
+                    <div style={{ marginBottom: 20 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                        <label style={lbl}>Galeria de fotos e vídeos</label>
+                        <input ref={fileGaleriaRef} type="file" accept="image/*,video/*" multiple style={{ display: 'none' }}
+                          onChange={e => e.target.files && e.target.files.length > 0 && uploadGaleria(e.target.files)} />
+                        <button onClick={() => fileGaleriaRef.current?.click()} disabled={uploadandoGaleria} style={{
+                          ...btnSm, background: '#EFF6FF', color: '#2563EB', padding: '6px 14px',
+                          opacity: uploadandoGaleria ? 0.7 : 1,
+                        }}>
+                          {uploadandoGaleria ? 'Enviando...' : '+ Adicionar fotos / vídeos'}
+                        </button>
+                      </div>
+
+                      {galeria.length === 0 ? (
+                        <p style={{ fontSize: 12, color: '#9CA3AF', fontStyle: 'italic' }}>
+                          Nenhuma mídia na galeria ainda. As fotos adicionadas aparecem no lightbox ao clicar no projeto.
+                        </p>
+                      ) : (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                          {galeria.map(m => (
+                            <div key={m.id} style={{ position: 'relative', borderRadius: 4, overflow: 'hidden', border: '1px solid #E8E3DC' }}>
+                              {m.tipo === 'video' ? (
+                                <div style={{ width: 96, height: 72, background: '#1C1917', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <span style={{ color: '#fff', fontSize: 22 }}>▶</span>
+                                </div>
+                              ) : (
+                                <img src={m.url} alt="" style={{ width: 96, height: 72, objectFit: 'cover', display: 'block' }} />
+                              )}
+                              <button
+                                onClick={() => excluirMidia(m.id)}
+                                style={{
+                                  position: 'absolute', top: 3, right: 3,
+                                  background: 'rgba(0,0,0,0.6)', border: 'none', borderRadius: '50%',
+                                  width: 22, height: 22, cursor: 'pointer', color: '#fff', fontSize: 12,
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                }}
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     <div style={{ display: 'flex', gap: 24, marginBottom: 20 }}>
@@ -305,8 +379,7 @@ export default function AdminPortfolio() {
                         Cancelar
                       </button>
                       <button onClick={() => salvarEdicao(item.id)} disabled={salvandoEdit} style={{
-                        ...btnSm, background: '#1C1917', color: '#fff', padding: '8px 18px',
-                        opacity: salvandoEdit ? 0.7 : 1,
+                        ...btnSm, background: '#1C1917', color: '#fff', padding: '8px 18px', opacity: salvandoEdit ? 0.7 : 1,
                       }}>
                         {salvandoEdit ? 'Salvando...' : '💾 Salvar alterações'}
                       </button>
