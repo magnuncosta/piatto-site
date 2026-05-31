@@ -7,6 +7,7 @@ interface Props {
   endereco?: string
   instagram?: string
   facebook?: string
+  logoUrl?: string
 }
 
 export default function Footer({
@@ -15,6 +16,7 @@ export default function Footer({
   endereco  = 'Niterói, Rio de Janeiro e Grande Rio',
   instagram = '',
   facebook  = '',
+  logoUrl   = '',
 }: Props) {
   const year = new Date().getFullYear()
 
@@ -33,7 +35,7 @@ export default function Footer({
       }}>
         <div>
           <div style={{ marginBottom: 16 }}>
-            <img src="/logo.svg" alt="Piatto Planejados" style={{ height: 38, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
+            <img src={logoUrl || '/logo.svg'} alt="Piatto Planejados" style={{ height: 38, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
           </div>
           <p style={{ fontSize: 13, lineHeight: 1.7, maxWidth: 220 }}>
             Móveis planejados sob medida com design exclusivo e fabricação própria.

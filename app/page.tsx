@@ -41,6 +41,7 @@ export default async function Home() {
         endereco={config.endereco}
         instagram={config.instagram_url}
         facebook={config.facebook_url}
+        logoUrl={config.logo_url}
       />
       <WhatsAppBtn whatsapp={config.whatsapp} />
     </>
