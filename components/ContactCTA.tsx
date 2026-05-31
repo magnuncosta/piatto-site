@@ -1,16 +1,20 @@
 'use client'
 
+const DEFAULT_BG = 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=80'
+
 interface Props {
   whatsapp?: string
   telefone?: string
   email?: string
   endereco?: string
+  bgUrl?: string
 }
 
 export default function ContactCTA({
   whatsapp  = '5521969530979',
   telefone  = '(21) 9 6953-0979',
   endereco  = 'Niterói, Rio de Janeiro e Grande Rio',
+  bgUrl     = '',
 }: Props) {
   const msg = 'Olá! Vim pelo site e gostaria de solicitar um orçamento para móveis planejados.'
   const waLink = `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`
@@ -18,7 +22,7 @@ export default function ContactCTA({
   return (
     <section id="contato" style={{ position: 'relative', overflow: 'hidden' }}>
       <img
-        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=80"
+        src={bgUrl || DEFAULT_BG}
         alt=""
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
       />

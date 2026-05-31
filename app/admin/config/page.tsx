@@ -8,8 +8,10 @@ export default function AdminConfig() {
   const [config, setConfig] = useState<Config>({})
   const [salvando, setSalvando] = useState<string | null>(null)
   const [uploadando, setUploadando] = useState(false)
+  const [uploadandoBg, setUploadandoBg] = useState(false)
   const [msg, setMsg] = useState<{ key: string; ok: boolean } | null>(null)
   const logoRef = useRef<HTMLInputElement>(null)
+  const bgRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     supabase.from('site_config').select('key, value').then(({ data }) => {
@@ -43,6 +45,21 @@ export default function AdminConfig() {
       setTimeout(() => setMsg(null), 3000)
     }
     setUploadando(false)
+  }
+
+  async function uploadBgContato(file: File) {
+    setUploadandoBg(true)
+    const ext = file.name.split('.').pop()
+    const path = `contato/bg.${ext}`
+    const { error } = await supabase.storage.from('site-assets').upload(path, file, { upsert: true })
+    if (!error) {
+      const { data: { publicUrl } } = supabase.storage.from('site-assets').getPublicUrl(path)
+      set('contact_bg_url', publicUrl)
+      await supabase.from('site_config').upsert({ key: 'contact_bg_url', value: publicUrl, updated_at: new Date().toISOString() })
+      setMsg({ key: 'contato_bg', ok: true })
+      setTimeout(() => setMsg(null), 3000)
+    }
+    setUploadandoBg(false)
   }
 
   return (
@@ -88,12 +105,33 @@ export default function AdminConfig() {
 
       {/* Contato */}
       <Section title="Contato">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
           <Field label="WhatsApp (com DDI e DDD, sem espaços)" value={config.whatsapp || ''} onChange={v => set('whatsapp', v)} />
           <Field label="Telefone (exibição)" value={config.telefone || ''} onChange={v => set('telefone', v)} />
           <Field label="E-mail" value={config.email || ''} onChange={v => set('email', v)} />
           <Field label="Endereço / Região" value={config.endereco || ''} onChange={v => set('endereco', v)} />
         </div>
+
+        <div style={{ marginBottom: 8 }}>
+          <label style={{ display: 'block', fontSize: 11, fontWeight: 600, color: '#78716C', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8 }}>
+            Imagem de fundo da seção Contato
+          </label>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            {config.contact_bg_url && (
+              <img src={config.contact_bg_url} alt="bg contato" style={{ height: 64, width: 112, objectFit: 'cover', borderRadius: 6, border: '1px solid #E8E3DC' }} />
+            )}
+            <div>
+              <input ref={bgRef} type="file" accept="image/*" style={{ display: 'none' }}
+                onChange={e => e.target.files?.[0] && uploadBgContato(e.target.files[0])} />
+              <Btn onClick={() => bgRef.current?.click()} disabled={uploadandoBg}>
+                {uploadandoBg ? 'Enviando...' : '📤 Trocar imagem de fundo'}
+              </Btn>
+              <p style={{ fontSize: 11, color: '#9CA3AF', marginTop: 6 }}>Recomendado: foto horizontal em alta resolução.</p>
+              {msg?.key === 'contato_bg' && <Ok ok={msg.ok} />}
+            </div>
+          </div>
+        </div>
+
         {msg?.key === 'contato' && <Ok ok={msg.ok} />}
         <SaveBtn onClick={() => salvar('contato', ['whatsapp', 'telefone', 'email', 'endereco'])} loading={salvando === 'contato'} />
       </Section>

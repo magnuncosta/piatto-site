@@ -32,6 +32,7 @@ export default async function Home() {
           telefone={config.telefone}
           email={config.email}
           endereco={config.endereco}
+          bgUrl={config.contact_bg_url}
         />
       </main>
       <Footer
