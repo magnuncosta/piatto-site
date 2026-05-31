@@ -41,6 +41,16 @@ export default function ContactCTA({
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
+          <a href="https://crm.piattoplanejados.com.br/solicitar" style={{
+            display: 'flex', alignItems: 'center', gap: 10, background: 'var(--accent)',
+            color: '#fff', padding: '15px 36px', borderRadius: 2, fontSize: 13,
+            letterSpacing: '0.08em', textDecoration: 'none', textTransform: 'uppercase', fontWeight: 500,
+          }}
+            onMouseEnter={e => (e.currentTarget.style.background = 'var(--accent-dark)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'var(--accent)')}
+          >
+            Solicitar orçamento
+          </a>
           <a href={waLink} target="_blank" rel="noopener noreferrer" style={{
             display: 'flex', alignItems: 'center', gap: 10, background: '#25D366',
             color: '#fff', padding: '15px 36px', borderRadius: 2, fontSize: 13,

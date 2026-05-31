@@ -72,7 +72,7 @@ export default function Hero({ titulo, subtitulo }: { titulo?: string; subtitulo
           >
             Ver projetos
           </a>
-          <a href="#contato" style={{
+          <a href="https://crm.piattoplanejados.com.br/solicitar" style={{
             border: '1px solid rgba(255,255,255,0.5)',
             color: '#fff',
             padding: '14px 36px',
@@ -86,7 +86,7 @@ export default function Hero({ titulo, subtitulo }: { titulo?: string; subtitulo
             onMouseEnter={e => { e.currentTarget.style.borderColor = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)' }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; e.currentTarget.style.background = 'transparent' }}
           >
-            Falar no WhatsApp
+            Solicitar orçamento
           </a>
         </div>
       </div>
