@@ -8,6 +8,7 @@ interface Props {
   instagram?: string
   facebook?: string
   logoUrl?: string
+  desc?: string
 }
 
 export default function Footer({
@@ -17,6 +18,7 @@ export default function Footer({
   instagram = '',
   facebook  = '',
   logoUrl   = '',
+  desc      = '',
 }: Props) {
   const year = new Date().getFullYear()
 
@@ -38,7 +40,7 @@ export default function Footer({
             <img src={logoUrl || '/logo.svg'} alt="Piatto Planejados" style={{ height: 38, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
           </div>
           <p style={{ fontSize: 13, lineHeight: 1.7, maxWidth: 220 }}>
-            Móveis planejados sob medida com design exclusivo e fabricação própria.
+            {desc || 'Móveis planejados sob medida com design exclusivo e fabricação própria.'}
           </p>
         </div>
 

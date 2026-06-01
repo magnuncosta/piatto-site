@@ -34,7 +34,7 @@ const SERVICOS = [
   },
 ]
 
-export default function Services() {
+export default function Services({ titulo }: { titulo?: string }) {
   return (
     <section id="servicos" style={{ padding: '100px 24px', background: 'var(--surface)' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -44,7 +44,7 @@ export default function Services() {
             O que fazemos
           </p>
           <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--ink)' }}>
-            Nossos serviços
+            {titulo || 'Nossos serviços'}
           </h2>
         </Reveal>
 

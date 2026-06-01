@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase'
 
 const NAV = [
   { href: '/admin/config',    icon: '⚙️', label: 'Configurações' },
+  { href: '/admin/textos',    icon: '✏️', label: 'Textos do site' },
   { href: '/admin/portfolio', icon: '🖼️', label: 'Portfólio' },
 ]
 

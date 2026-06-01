@@ -2,15 +2,18 @@
 
 const DEFAULT_TITULO    = 'Cada detalhe, um propósito.'
 const DEFAULT_SUBTITULO = 'Móveis planejados sob medida que transformam ambientes em experiências únicas. Do projeto à instalação, cada peça feita para você.'
+const DEFAULT_BADGE = 'Marcenaria & Design de Interiores'
+const DEFAULT_BG = 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1800&q=80'
 
-export default function Hero({ titulo, subtitulo }: { titulo?: string; subtitulo?: string }) {
+export default function Hero({ titulo, subtitulo, badge, bgUrl }: { titulo?: string; subtitulo?: string; badge?: string; bgUrl?: string }) {
   const t = titulo    || DEFAULT_TITULO
   const s = subtitulo || DEFAULT_SUBTITULO
+  const b = badge     || DEFAULT_BADGE
   return (
     <section style={{ position: 'relative', height: '100vh', minHeight: 600, overflow: 'hidden' }}>
       {/* Background image */}
       <img
-        src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1800&q=80"
+        src={bgUrl || DEFAULT_BG}
         alt="Interior moderno com móveis planejados"
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
       />
@@ -32,7 +35,7 @@ export default function Hero({ titulo, subtitulo }: { titulo?: string; subtitulo
           fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase',
           color: 'var(--accent)', marginBottom: 20, fontWeight: 500,
         }}>
-          Marcenaria & Design de Interiores
+          {b}
         </p>
 
         <h1 className="animate-fade-up delay-200" style={{

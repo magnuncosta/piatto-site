@@ -8,6 +8,9 @@ interface Props {
   email?: string
   endereco?: string
   bgUrl?: string
+  badge?: string
+  titulo?: string
+  desc?: string
 }
 
 export default function ContactCTA({
@@ -15,6 +18,9 @@ export default function ContactCTA({
   telefone  = '(21) 9 6953-0979',
   endereco  = 'Niterói, Rio de Janeiro e Grande Rio',
   bgUrl     = '',
+  badge     = '',
+  titulo    = '',
+  desc      = '',
 }: Props) {
   const msg = 'Olá! Vim pelo site e gostaria de solicitar um orçamento para móveis planejados.'
   const waLink = `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`
@@ -30,14 +36,13 @@ export default function ContactCTA({
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: 680, margin: '0 auto', padding: '120px 24px', textAlign: 'center' }}>
         <p style={{ fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 20 }}>
-          Vamos conversar
+          {badge || 'Vamos conversar'}
         </p>
         <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 300, color: '#fff', lineHeight: 1.1, marginBottom: 20 }}>
-          Pronto para transformar<br />
-          <em style={{ fontStyle: 'italic' }}>o seu espaço?</em>
+          {titulo || <>Pronto para transformar<br /><em style={{ fontStyle: 'italic' }}>o seu espaço?</em></>}
         </h2>
         <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 48 }}>
-          Agende uma consulta gratuita. Nossa equipe vai ao seu imóvel, mede o ambiente e apresenta um projeto personalizado sem compromisso.
+          {desc || 'Agende uma consulta gratuita. Nossa equipe vai ao seu imóvel, mede o ambiente e apresenta um projeto personalizado sem compromisso.'}
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
