@@ -2,36 +2,12 @@
 import Reveal from './Reveal'
 
 const SERVICOS = [
-  {
-    icon: '🍳',
-    titulo: 'Cozinhas Planejadas',
-    texto: 'Cozinhas funcionais e elegantes, projetadas para otimizar cada centímetro do espaço. Materiais premium, acabamentos impecáveis e soluções inteligentes de armazenamento.',
-  },
-  {
-    icon: '🛏',
-    titulo: 'Dormitórios & Closets',
-    texto: 'Do dormitório infantil ao closet master, criamos ambientes que combinam conforto, organização e estética. Cada projeto é único como quem vai usá-lo.',
-  },
-  {
-    icon: '🛋',
-    titulo: 'Salas & Ambientes Integrados',
-    texto: 'Painéis de TV, estantes, aparadores e muito mais. Transformamos salas de estar e jantar em espaços sofisticados com personalidade própria.',
-  },
-  {
-    icon: '💼',
-    titulo: 'Home Office',
-    texto: 'Ambientes de trabalho projetados para produtividade e bem-estar. Mesas, estantes, gaveteiros e painéis acústicos customizados para o seu ritmo.',
-  },
-  {
-    icon: '🪟',
-    titulo: 'Lavabos & Banheiros',
-    texto: 'Gabinetes, armários e nichos sob medida que transformam banheiros em espaços de relaxamento com o máximo aproveitamento de área.',
-  },
-  {
-    icon: '🏡',
-    titulo: 'Áreas Externas',
-    texto: 'Móveis e estruturas planejadas para varandas, jardins e áreas gourmet. Design bonito e materiais resistentes às condições climáticas.',
-  },
+  { titulo: 'Cozinhas Planejadas',        texto: 'Cozinhas funcionais e elegantes, projetadas para otimizar cada centímetro do espaço. Materiais premium, acabamentos impecáveis e soluções inteligentes de armazenamento.' },
+  { titulo: 'Dormitórios & Closets',       texto: 'Do dormitório infantil ao closet master, criamos ambientes que combinam conforto, organização e estética. Cada projeto é único como quem vai usá-lo.' },
+  { titulo: 'Salas & Ambientes Integrados',texto: 'Painéis de TV, estantes, aparadores e muito mais. Transformamos salas de estar e jantar em espaços sofisticados com personalidade própria.' },
+  { titulo: 'Home Office',                 texto: 'Ambientes de trabalho projetados para produtividade e bem-estar. Mesas, estantes, gaveteiros e painéis acústicos customizados para o seu ritmo.' },
+  { titulo: 'Lavabos & Banheiros',         texto: 'Gabinetes, armários e nichos sob medida que transformam banheiros em espaços de relaxamento com o máximo aproveitamento de área.' },
+  { titulo: 'Áreas Externas',              texto: 'Móveis e estruturas planejadas para varandas, jardins e áreas gourmet. Design bonito e materiais resistentes às condições climáticas.' },
 ]
 
 export default function Services({ titulo }: { titulo?: string }) {
@@ -65,7 +41,7 @@ export default function Services({ titulo }: { titulo?: string }) {
                 onMouseEnter={e => (e.currentTarget.style.background = '#fff')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg)')}
               >
-                <div style={{ fontSize: 32, marginBottom: 20 }}>{s.icon}</div>
+                <div style={{ width: 32, height: 2, background: 'var(--accent)', marginBottom: 24 }} />
                 <h3 style={{
                   fontFamily: 'var(--font-heading)',
                   fontSize: 24,
