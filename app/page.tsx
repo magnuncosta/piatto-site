@@ -36,6 +36,9 @@ export default async function Home() {
     { texto: c.testimonial_1_texto || 'A Piatto transformou completamente a minha cozinha. O projeto foi impecável, o prazo foi cumprido e o acabamento ficou melhor do que eu imaginava. Recomendo sem hesitar.', nome: c.testimonial_1_nome || 'Fernanda Oliveira', local: c.testimonial_1_local || 'Niterói, RJ' },
     { texto: c.testimonial_2_texto || 'Contratei para o closet do quarto e um home office. Profissionais excepcionais, atenção aos detalhes que ninguém mais percebe e atendimento de verdade. Voltarei para a próxima reforma.', nome: c.testimonial_2_nome || 'Rafael Mendes', local: c.testimonial_2_local || 'Rio de Janeiro, RJ' },
     { texto: c.testimonial_3_texto || 'O projeto 3D me ajudou muito a visualizar o resultado final. Quando chegou o dia da instalação, foi exatamente como prometido. Qualidade e seriedade em todas as etapas.', nome: c.testimonial_3_nome || 'Camila Rodrigues', local: c.testimonial_3_local || 'São Gonçalo, RJ' },
+    { texto: c.testimonial_4_texto || '', nome: c.testimonial_4_nome || '', local: c.testimonial_4_local || '' },
+    { texto: c.testimonial_5_texto || '', nome: c.testimonial_5_nome || '', local: c.testimonial_5_local || '' },
+    { texto: c.testimonial_6_texto || '', nome: c.testimonial_6_nome || '', local: c.testimonial_6_local || '' },
   ]
 
   const aboutFeatures = [

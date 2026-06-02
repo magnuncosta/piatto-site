@@ -129,7 +129,7 @@ export default function AdminTextos() {
       {/* Depoimentos */}
       <Sec title="Depoimentos">
         <Field label="Título da seção" value={config.testimonials_titulo || ''} onChange={v => set('testimonials_titulo', v)} placeholder="O que nossos clientes dizem" />
-        {[1, 2, 3].map(i => (
+        {[1, 2, 3, 4, 5, 6].map(i => (
           <div key={i} style={{ marginBottom: 16, paddingLeft: 12, borderLeft: '2px solid var(--border)' }}>
             <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--accent)', marginBottom: 8 }}>Depoimento {i}</p>
             <Field label="Texto" value={config[`testimonial_${i}_texto`] || ''} onChange={v => set(`testimonial_${i}_texto`, v)} multi />
@@ -140,7 +140,7 @@ export default function AdminTextos() {
           </div>
         ))}
         {msg?.key === 'testimonials' && <Ok ok={msg.ok} />}
-        <SaveBtn onClick={() => salvar('testimonials', ['testimonials_titulo','testimonial_1_texto','testimonial_1_nome','testimonial_1_local','testimonial_2_texto','testimonial_2_nome','testimonial_2_local','testimonial_3_texto','testimonial_3_nome','testimonial_3_local'])} loading={salvando === 'testimonials'} />
+        <SaveBtn onClick={() => salvar('testimonials', ['testimonials_titulo','testimonial_1_texto','testimonial_1_nome','testimonial_1_local','testimonial_2_texto','testimonial_2_nome','testimonial_2_local','testimonial_3_texto','testimonial_3_nome','testimonial_3_local','testimonial_4_texto','testimonial_4_nome','testimonial_4_local','testimonial_5_texto','testimonial_5_nome','testimonial_5_local','testimonial_6_texto','testimonial_6_nome','testimonial_6_local'])} loading={salvando === 'testimonials'} />
       </Sec>
 
       {/* Contato CTA */}

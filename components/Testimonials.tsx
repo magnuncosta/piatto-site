@@ -6,10 +6,14 @@ const DEFAULT_DEPOIMENTOS: Depoimento[] = [
   { texto: 'A Piatto transformou completamente a minha cozinha. O projeto foi impecável, o prazo foi cumprido e o acabamento ficou melhor do que eu imaginava. Recomendo sem hesitar.', nome: 'Fernanda Oliveira', local: 'Niterói, RJ' },
   { texto: 'Contratei para o closet do quarto e um home office. Profissionais excepcionais, atenção aos detalhes que ninguém mais percebe e atendimento de verdade. Voltarei para a próxima reforma.', nome: 'Rafael Mendes', local: 'Rio de Janeiro, RJ' },
   { texto: 'O projeto 3D me ajudou muito a visualizar o resultado final. Quando chegou o dia da instalação, foi exatamente como prometido. Qualidade e seriedade em todas as etapas.', nome: 'Camila Rodrigues', local: 'São Gonçalo, RJ' },
+  { texto: '', nome: '', local: '' },
+  { texto: '', nome: '', local: '' },
+  { texto: '', nome: '', local: '' },
 ]
 
 export default function Testimonials({ titulo, items }: { titulo?: string; items?: Depoimento[] }) {
-  const depoimentos = (items && items.length > 0) ? items : DEFAULT_DEPOIMENTOS
+  const todos = (items && items.length > 0) ? items : DEFAULT_DEPOIMENTOS
+  const depoimentos = todos.filter(d => d.texto.trim())
   return (
     <section style={{ padding: '100px 24px', background: 'var(--surface)' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
