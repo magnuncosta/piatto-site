@@ -70,15 +70,6 @@ export default function ContactCTA({
             </svg>
             Falar no WhatsApp
           </a>
-          <a href={`tel:${whatsapp}`} style={{
-            border: '1px solid rgba(255,255,255,0.3)', color: '#fff', padding: '15px 36px',
-            borderRadius: 2, fontSize: 13, letterSpacing: '0.08em', textDecoration: 'none', textTransform: 'uppercase',
-          }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.background = 'transparent' }}
-          >
-            {telefone}
-          </a>
         </div>
 
         <p style={{ marginTop: 32, fontSize: 12, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.04em' }}>
