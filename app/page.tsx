@@ -91,6 +91,7 @@ export default async function Home() {
         endereco={c.endereco}
         instagram={c.instagram_url}
         facebook={c.facebook_url}
+        youtube={c.youtube_url}
         logoUrl={c.logo_url}
         desc={c.footer_desc}
       />

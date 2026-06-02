@@ -7,6 +7,7 @@ interface Props {
   endereco?: string
   instagram?: string
   facebook?: string
+  youtube?: string
   logoUrl?: string
   desc?: string
 }
@@ -17,6 +18,7 @@ export default function Footer({
   endereco  = 'Niterói, Rio de Janeiro e Grande Rio',
   instagram = '',
   facebook  = '',
+  youtube   = '',
   logoUrl   = '',
   desc      = '',
 }: Props) {
@@ -25,7 +27,7 @@ export default function Footer({
   const socialLinks = [
     { label: 'Instagram', href: instagram || '#' },
     { label: 'Facebook',  href: facebook  || '#' },
-    { label: 'Pinterest', href: '#' },
+    { label: 'YouTube',   href: youtube   || '#' },
   ]
 
   return (

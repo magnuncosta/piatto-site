@@ -140,8 +140,9 @@ export default function AdminConfig() {
       <Section title="Redes sociais">
         <Field label="Instagram (URL completa)" value={config.instagram_url || ''} onChange={v => set('instagram_url', v)} placeholder="https://instagram.com/piattoplanejados" />
         <Field label="Facebook (URL completa)" value={config.facebook_url || ''} onChange={v => set('facebook_url', v)} placeholder="https://facebook.com/piattoplanejados" />
+        <Field label="YouTube (URL completa)" value={config.youtube_url || ''} onChange={v => set('youtube_url', v)} placeholder="https://youtube.com/@piattoplanejados" />
         {msg?.key === 'redes' && <Ok ok={msg.ok} />}
-        <SaveBtn onClick={() => salvar('redes', ['instagram_url', 'facebook_url'])} loading={salvando === 'redes'} />
+        <SaveBtn onClick={() => salvar('redes', ['instagram_url', 'facebook_url', 'youtube_url'])} loading={salvando === 'redes'} />
       </Section>
 
       {/* Aparência */}
