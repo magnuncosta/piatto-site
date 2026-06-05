@@ -44,8 +44,40 @@ alter table site_portfolio enable row level security;
 create policy "leitura publica site_portfolio"    on site_portfolio for select using (ativo = true);
 create policy "escrita autenticada site_portfolio" on site_portfolio for all    using (auth.role() = 'authenticated');
 
+-- Coluna de descrição do projeto (adicionada depois)
+alter table site_portfolio add column if not exists descricao text default '';
+
+-- Galeria de mídias por projeto (fotos e vídeos do lightbox)
+create table if not exists site_portfolio_midia (
+  id           uuid primary key default gen_random_uuid(),
+  portfolio_id uuid references site_portfolio(id) on delete cascade,
+  url          text not null,
+  tipo         text default 'image',
+  ordem        int default 0,
+  created_at   timestamptz default now()
+);
+
+alter table site_portfolio_midia enable row level security;
+create policy "leitura publica midia"     on site_portfolio_midia for select using (true);
+create policy "escrita autenticada midia" on site_portfolio_midia for all    using (auth.role() = 'authenticated');
+
 -- =============================================
 -- STORAGE: criar bucket "site-assets"
 -- Supabase → Storage → New bucket
 -- Nome: site-assets   |   Public: SIM
 -- =============================================
+
+-- =============================================
+-- ⚠️  IMPORTANTE — BANCO COMPARTILHADO COM O CRM
+-- O site público lê estas tabelas SEM login (anon key), direto no browser.
+-- Por isso elas PRECISAM manter a política de LEITURA PÚBLICA (select).
+-- Se alguma rotina de segurança do CRM fechar o RLS de todo o schema
+-- (ex: "authenticated only" em todas as tabelas), rode o bloco abaixo
+-- para restaurar a leitura pública APENAS das tabelas do site:
+-- =============================================
+-- DROP POLICY IF EXISTS site_config_public_read         ON site_config;
+-- DROP POLICY IF EXISTS site_portfolio_public_read       ON site_portfolio;
+-- DROP POLICY IF EXISTS site_portfolio_midia_public_read ON site_portfolio_midia;
+-- CREATE POLICY site_config_public_read         ON site_config          FOR SELECT USING (true);
+-- CREATE POLICY site_portfolio_public_read       ON site_portfolio       FOR SELECT USING (ativo = true);
+-- CREATE POLICY site_portfolio_midia_public_read ON site_portfolio_midia FOR SELECT USING (true);
