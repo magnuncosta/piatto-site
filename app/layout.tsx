@@ -32,10 +32,10 @@ export const revalidate = 60
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Piatto Planejados — Móveis Planejados sob Medida em Niterói e RJ',
+    default: 'Móveis Planejados sob Medida em Niterói, RJ e região | Piatto',
     template: '%s | Piatto Planejados',
   },
-  description: 'Móveis planejados sob medida para cozinhas, dormitórios, salas e home offices em Niterói, Rio de Janeiro e Grande Rio. Fabricação própria, projeto exclusivo e instalação com garantia.',
+  description: 'Móveis planejados sob medida em Niterói e região. Veja seu projeto em 3D realista antes de decidir. Atendemos Niterói, São Gonçalo, Maricá, Rio de Janeiro e região.',
   keywords: [
     'móveis planejados', 'marcenaria', 'móveis sob medida',
     'cozinha planejada', 'dormitório planejado', 'home office planejado',

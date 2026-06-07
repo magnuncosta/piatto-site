@@ -83,6 +83,23 @@ export default async function Home() {
           titulo={c.contato_titulo}
           desc={c.contato_desc}
         />
+        {/* Onde atendemos — SEO local */}
+        <section style={{ padding: '72px 24px', background: 'var(--bg)' }}>
+          <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
+            <p style={{ fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 14 }}>
+              Onde atendemos
+            </p>
+            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 300, color: 'var(--ink)', lineHeight: 1.15, marginBottom: 16 }}>
+              Atendemos você em toda a região
+            </h2>
+            <p style={{ fontSize: 16, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 540, margin: '0 auto' }}>
+              Niterói, São Gonçalo, Maricá e Rio de Janeiro. Levamos o projeto até a sua casa, onde quer que ela esteja.
+            </p>
+            <p style={{ fontSize: 12.5, color: 'var(--muted)', opacity: 0.55, lineHeight: 1.7, maxWidth: 660, margin: '26px auto 0' }}>
+              A Piatto realiza projetos de móveis planejados sob medida em Niterói (Icaraí, Centro, Santa Rosa, São Francisco, Charitas, Ingá), São Gonçalo, Maricá, Itaboraí e nas zonas Sul, Norte e Centro do Rio de Janeiro.
+            </p>
+          </div>
+        </section>
       </main>
       <Footer
         whatsapp={c.whatsapp}
